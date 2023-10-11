@@ -1,15 +1,14 @@
 public class printToN {
     public static void main(String[] args) {
         int N = 10;
-        int temp = 1;
-        recurNumber(N, temp);
+        recurNumber(N, 1);
     }
 
-    static int recurNumber(int N, int temp) {
-        if (temp > N) {
+    static int recurNumber(int N, int i) {
+        if (i > N) {
             return N;
         }
-        System.out.println(temp);
-        return recurNumber(N, temp + 1);
+        System.out.println(i);
+        return recurNumber(N, i + 1);
     }
 }
