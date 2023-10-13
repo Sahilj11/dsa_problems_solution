@@ -1,26 +1,27 @@
-import java.util.Arrays;
-import java.util.Collections;
-
 public class palindromeString {
 
     public static void main(String[] args) {
-        String str = "sahil jalandhara";
+        // TODO: checking palindrome string
+        String str = "TAKE U FORWARD";
         String[] arr = str.split(" ");
-        Collections.reverse(Arrays.asList(arr));
+        int firstKey = 0;
+        int lastKey = arr.length - 1;
+        boolean palindrome = false;
         for (int i = 0; i < arr.length; i++) {
-
+            if (firstKey > lastKey) {
+                break;
+            } else if (arr[firstKey].equals(arr[lastKey])) {
+                palindrome = true;
+                firstKey++;
+                lastKey--;
+            } else {
+                palindrome = false;
+                firstKey++;
+                lastKey--;
+            }
         }
-        for (String string : arr) {
+        System.out.println(palindrome);
 
-            System.out.println(string);
-        }
     }
 
-    static String revString(String word) {
-        String[] arr = word.split("");
-        String[] reverseArr = new String[arr.length];
-        for (int i = 0; i < word.length(); i++) {
-            System.out.println(word.charAt(i));
-        }
-    }
 }
