@@ -1,18 +1,19 @@
 class rotateNPlace {
   public static void main(String[] args) {
     int[] arr = { 5, 4, 3, 2, 1 };
-    int len = arr.length;
-    int rotateSteps = 3;
-    int firstVar = arr[0];
-    for (int j = 0; j < rotateSteps; j++) {
-      for (int i = 1; i < len; i++) {
-        arr[i - 1] = arr[i];
+    int k = 3;
+    rotateFun(arr, k);
+  }
+  static void rotateFun(int[] arr, int k){
+      for (int i = 0; i < k; i++) {
+          int first = arr[0];
+           for (int j = 1; j < arr.length; j++) {
+               arr[j-1] = arr[j];
+           } 
+           arr[arr.length - 1] = first;
       }
-      arr[len - 1] = firstVar;
-      firstVar = arr[0];
-    }
-    for (int var : arr) {
-      System.out.println(var);
-    }
+      for (int i : arr) {
+        System.out.println(i);
+      }
   }
 }
