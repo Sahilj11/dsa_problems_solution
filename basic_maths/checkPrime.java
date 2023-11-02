@@ -8,9 +8,8 @@ public class checkPrime {
         for (int i = 2; i < (int) Math.sqrt((double) num); i++) {
             if (num % i == 0) {
                 return false;
-            }
+           }
         }
         return true;
     }
-
 }

@@ -1,7 +1,7 @@
 import java.util.*;
 public class frequencyElement{
     public static void main(String[] args) {
-        int[] arr = {2,2,3,4,4,2};
+        int[] arr = {9,2,3,4,4,2};
         // bruteFreq(arr);
         optFreq(arr);
     }
@@ -35,6 +35,5 @@ public class frequencyElement{
        for (Integer i : occur.keySet()) {
          System.out.println(i + " occurs " + occur.get(i));
        }
-
     }
 }

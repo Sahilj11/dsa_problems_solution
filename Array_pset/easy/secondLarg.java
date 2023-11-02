@@ -1,24 +1,33 @@
+import java.util.Arrays;
+
 class secondLarg{
 	public static void main(String[] arg){
 		int[] arr = {0,5,4,3,2,1};
-		int largest = arr[0];
-		int largestIndex = 0;
-		int secondLargest = 0;
-		for(int i = 0 ; i < arr.length ; i++){
-			if(largest < arr[i]){
-				largest = arr[i];
-				largestIndex = i;
-			}
-		}
-
-		for(int i = 0 ; i < arr.length ; i++){
-			if(i == largestIndex){
-				continue;
-			}else if(arr[i] > secondLargest){
-				secondLargest = arr[i];
-			}
-
-		}
-		System.out.println(secondLargest);
+        int len = arr.length;
+        bruteSecondLarg(arr, len);
+        optimulSecondLarg(arr, len);
 	}
+    static void bruteSecondLarg(int[] arr, int len){
+        if(len< 4){
+            System.out.println("-1");
+        }
+        Arrays.sort(arr);
+        int secondLarg = arr[len- 2];
+        int secondSmall = arr[1];
+        System.out.println(secondLarg+ "," + secondSmall);
+    }
+    static void betterApproach(int[] arr, int len){
+        
+    }
+    static void optimulSecondLarg(int[] arr, int len){
+        int largest = 0;
+        int secondLargest = -1;
+        for (int i = 0; i < len; i++) {
+           if(arr[i] > largest){
+               secondLargest = largest;
+               largest = arr[i];
+           } 
+        }
+        System.out.println(secondLargest);
+    }
 }
