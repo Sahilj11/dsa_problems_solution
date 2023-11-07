@@ -16,4 +16,10 @@ class rotateNPlace {
         System.out.println(i);
       }
   }
+  static void reversalAlgo(int[] arr, int k){
+      for (int i = arr.length - k; i < arr.length; i++) {
+        
+      }
+
+  }
 }
