@@ -1,25 +1,34 @@
+import java.util.ArrayList;
+
 public class consecutiveOne {
 
-	public static void main(String[] args) {
-		int[] arr = { 1, 1, 0, 1, 1, 1, 1 };
-		ones(arr);
-	}
+    public static void main(String[] args) {
+        int[] arr = {1, 0, 1, 1, 0, 1};
+        approach(arr);
+    }
 
-	static void ones(int[] arr) {
-		int counter = 0;
-		int max = 0;
-		for (int var : arr) {
-			if (var == 1) {
-				counter++;
-			} else {
-				max = counter;
-				counter = 0;
-			}
-		}
-		if (max > counter) {
-			System.out.println(max);
-		} else {
-			System.out.println(counter);
-		}
-	}
+    static void approach(int[] arr) {
+        ArrayList<Integer> countArr = new ArrayList<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            int count = 0;
+                while (i < arr.length && arr[i] == 1) {
+                    if (i >= arr.length) {
+                        break;
+                    }
+                    count++;
+                    i++;
+                }
+                if(count > 0){
+                    countArr.add(count);
+                }
+        }
+        int largestCount = 0;
+        for (Integer integer : countArr) {
+            if(integer > largestCount){
+                largestCount = integer;
+            }
+        }
+        System.out.println(largestCount);
+    }
 }
