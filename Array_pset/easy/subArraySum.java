@@ -20,4 +20,7 @@ public class subArraySum {
 			}
 		}
 	}
+    static void brute(int[] arr, int sum){
+
+    }
 }
