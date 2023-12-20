@@ -5,7 +5,8 @@ public class RearrangeArraySign {
 
     public static void main(String[] args) {
         int[] arr = { 1, 2, -3, -1, -2, 3 };
-        bruteForce(arr);
+        // bruteForce(arr);
+        optimul1(arr);
     }
 
     static void bruteForce(int[] arr) {
@@ -38,7 +39,59 @@ public class RearrangeArraySign {
             System.out.println(i);
         }
     }
-    static void optimul1(int[] arr){
 
+    static void optimul1(int[] arr) {
+        int ith = 0;
+        int positive = 0;
+        int negative = 0;
+        int alternate[] = new int[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            if (ith % 2 == 0) {
+                if (arr[positive] >= 0) {
+                    alternate[ith] = arr[positive];
+                    positive = checkPos(arr, positive);
+                } else {
+                    positive = checkPos(arr, positive);
+                    alternate[ith] = arr[positive];
+                }
+            } else {
+                if (arr[negative] < 0) {
+                    alternate[ith] = arr[negative];
+                    negative = checkNeg(arr, negative);
+                } else {
+                    negative = checkNeg(arr, negative);
+                    alternate[ith] = arr[negative];
+                }
+
+            }
+            ith++;
+        }
+        for (int i : alternate) {
+            System.out.print(i);
+            System.out.print(",");
+        }
+
+        System.out.println();
+    }
+
+    static int checkPos(int[] arr, int pos) {
+        while (pos < arr.length - 1) {
+            pos++;
+            if (arr[pos] >= 0) {
+                return pos;
+            }
+        }
+        return pos;
+    }
+
+    static int checkNeg(int[] arr, int neg) {
+        while (neg < arr.length - 1) {
+            neg++;
+            if (arr[neg] < 0) {
+                return neg;
+            }
+        }
+        return neg;
     }
 }
