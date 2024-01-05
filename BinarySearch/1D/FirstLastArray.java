@@ -5,7 +5,8 @@ public class FirstLastArray {
 
     public static void main(String[] args) {
         int[] arr = { 2, 4, 6, 8, 8, 8, 11, 13 };
-        optimul1(arr, 8);
+        // optimul1(arr, 8);
+        optimul2(arr, 8);
     }
 
     private static void brute(int[] arr, int x) {
@@ -26,12 +27,12 @@ public class FirstLastArray {
     private static void optimul1(int[] arr, int x) {
         int lb = lowerBound(arr, x);
         int up = upperBound(arr, x);
-        if(lb == x || arr[lb] != x){
+        if (lb == x || arr[lb] != x) {
             System.out.println(-1);
             return;
         }
-        System.out.print(lb+",");
-        System.out.print(up-1);
+        System.out.print(lb + ",");
+        System.out.print(up - 1);
         System.out.println();
     }
 
@@ -64,6 +65,53 @@ public class FirstLastArray {
                 high = midPoint - 1;
             }
             if (arr[midPoint] <= x) {
+                low = midPoint + 1;
+            }
+            midPoint = (low + high) / 2;
+        }
+        return ans;
+    }
+
+    private static void optimul2(int[] arr, int x) {
+        System.out.println(lowBinary(arr, x));
+        System.out.println(highBinary(arr, x));
+    }
+
+    private static int lowBinary(int[] arr, int x) {
+        int low = 0;
+        int high = arr.length - 1;
+        int midPoint = (low + high) / 2;
+        int ans = 0;
+        while (low <= high) {
+            if (arr[midPoint] == x) {
+                ans = midPoint;
+                high = midPoint - 1;
+            }
+            if (arr[midPoint] > x) {
+                high = midPoint - 1;
+            }
+            if (arr[midPoint] < x) {
+                low = midPoint + 1;
+            }
+            midPoint = (low + high) / 2;
+        }
+        return ans;
+    }
+
+    private static int highBinary(int[] arr, int x) {
+        int low = 0;
+        int high = arr.length - 1;
+        int midPoint = (low + high) / 2;
+        int ans = 0;
+        while (low <= high) {
+            if (arr[midPoint] == x) {
+                ans = midPoint;
+                low = midPoint + 1;
+            }
+            if (arr[midPoint] > x) {
+                high = midPoint - 1;
+            }
+            if (arr[midPoint] < x) {
                 low = midPoint + 1;
             }
             midPoint = (low + high) / 2;
