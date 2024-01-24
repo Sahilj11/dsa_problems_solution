@@ -8,10 +8,11 @@ public class RemoveBracket {
 
     public static void main(String[] args) {
         String s = "(()())(())(()(()))";
-        removeOuter(s);
+        System.out.println(optimul(s));
     }
 
     private static String optimul(String s) {
+        // TODO
         int len = s.length();
         if (len <= 2)
             return "";
