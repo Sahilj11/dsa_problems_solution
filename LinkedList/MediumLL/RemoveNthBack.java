@@ -1,23 +1,19 @@
-import java.util.HashSet;
-import java.util.Set;
-
 /**
- * DetectCycle
+ * RemoveNthBack
  */
-public class DetectCycle {
+public class RemoveNthBack {
 
     public static void main(String[] args) {
         MyLinkedList<Integer> ls = new MyLinkedList<>();
+        int n = 3;
+        ls.add(1);
         ls.add(2);
+        ls.add(3);
         ls.add(4);
         ls.add(5);
-        ls.add(23);
-        ls.add(26);
-        ls.add(27);
-        ls.add(25);
         ls.add(6);
-        ls.addCycle(5);
-        System.out.println(ls.isCycleOpt());
+        ls.removeNth(n);
+        ls.display();
     }
 }
 
@@ -29,6 +25,18 @@ class MyLinkedList<T> {
         this.head = null;
     }
 
+    Node<T> middleBrute() {
+        Node<T> n = head;
+        int mid = 0;
+        if (this.size() % 2 == 0) {
+            mid = this.size() / 2;
+            return this.get(mid);
+        } else {
+            mid = this.size() / 2;
+            return this.get(mid);
+        }
+    }
+
     Node<T> get(int n) {
         Node<T> node = head;
         while (n != 0) {
@@ -37,13 +45,41 @@ class MyLinkedList<T> {
         }
         return node;
     }
-
-    Node<T> tailNode() {
-        Node<T> current = head;
-        while (current.next != null) {
-            current = current.next;
+    void removeNth(int n){
+        if (n <= 0 || n > this.size()) {
+           return; 
         }
-        return current;
+        Node<T> prev = null;
+        Node<T> slow = this.head;
+        Node<T> fast = this.head ;
+
+        int temp = n-1;
+        while ( temp != 0) {
+           fast = fast.next; 
+           temp--;
+        }
+        System.out.println("Fast Starting point " +fast.data);
+        while (fast.next != null) {
+           fast = fast.next;
+           prev = slow;
+           slow = slow.next;
+        }
+        if (slow == this.head) {
+            this.head = slow.next;
+        } else {
+            prev.next = slow.next;
+            slow.next = null;
+        }
+    }
+
+    Node<T> middleOpt() {
+        Node<T> slow = head;
+        Node<T> fast = head;
+        while (!(fast.next == null || fast == null)) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
     }
 
     void add(T data) {
@@ -57,12 +93,6 @@ class MyLinkedList<T> {
             }
             current.next = node;
         }
-    }
-
-    void addCycle(int index) {
-        Node<T> n = this.get(index);
-        Node<T> tail = this.tailNode();
-        tail.next = n;
     }
 
     void insertHead(T data) {
@@ -84,24 +114,6 @@ class MyLinkedList<T> {
         System.out.println();
     }
 
-    void reverse() {
-        if (this.size() == 1) {
-            return;
-        }
-        Node<T> prev = null;
-        Node<T> temp = head;
-        Node<T> front = head.next;
-        while (front != null) {
-            temp.next = prev;
-            Node<T> temp2 = temp;
-            temp = front;
-            front = front.next;
-            prev = temp2;
-        }
-        head = temp;
-        temp.next = prev;
-    }
-
     int size() {
         int size = 0;
         Node<T> current = head;
@@ -110,31 +122,6 @@ class MyLinkedList<T> {
             size++;
         }
         return size;
-    }
-
-    boolean isCycleBrute() {
-        Set<Node<T>> st = new HashSet<>();
-        Node<T> node = head;
-        while (node.next != null) {
-            st.add(node);
-            node = node.next;
-            if (st.contains(node)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    boolean isCycleOpt(){
-        Node<T> slow = head;
-        Node<T> fast = head;
-        while (fast.next != null || fast != null) {
-           if (slow == fast) {
-               return true;
-           } 
-           slow = slow.next;
-           fast = fast.next.next;
-        }
-        return false;
     }
 }
 

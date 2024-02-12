@@ -1,23 +1,22 @@
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 /**
- * DetectCycle
+ * LengthLoop
  */
-public class DetectCycle {
+public class LengthLoop {
 
     public static void main(String[] args) {
         MyLinkedList<Integer> ls = new MyLinkedList<>();
         ls.add(2);
         ls.add(4);
         ls.add(5);
-        ls.add(23);
-        ls.add(26);
-        ls.add(27);
-        ls.add(25);
         ls.add(6);
-        ls.addCycle(5);
-        System.out.println(ls.isCycleOpt());
+        ls.addCycle(1);
+        System.out.println(ls.loopSizeStack());
+        System.out.println(ls.loopLength());
     }
 }
 
@@ -124,15 +123,56 @@ class MyLinkedList<T> {
         }
         return false;
     }
-    boolean isCycleOpt(){
+
+    int loopSizeStack() {
+        Node<T> start = null;
+        Node<T> last = head;
+        Stack<Node<T>> st = new Stack<>();
+        while (last.next != null) {
+            if (!st.contains(last)) {
+                st.add(last);
+                last = last.next;
+            } else {
+                last = st.peek();
+                System.out.println(last.data + " this is ending point");
+                start = last.next;
+                System.out.println(start.data + " this is starting point");
+                break;
+            }
+        }
+        int count = 1;
+        while (start != last) {
+            count++;
+            start = start.next;
+        }
+        return count;
+    }
+
+    int loopLength() {
+        HashMap<Node<T>, Integer> hp = new HashMap<>();
+        Node<T> ptr = head;
+        int counter = 1;
+        while (ptr.next != null) {
+            if (!hp.containsKey(ptr)) {
+                hp.put(ptr, counter);
+                counter++;
+                ptr = ptr.next;
+            } else {
+                return counter - hp.get(ptr);
+            }
+        }
+        return counter;
+    }
+
+    boolean isCycleOpt() {
         Node<T> slow = head;
         Node<T> fast = head;
         while (fast.next != null || fast != null) {
-           if (slow == fast) {
-               return true;
-           } 
-           slow = slow.next;
-           fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
         }
         return false;
     }
