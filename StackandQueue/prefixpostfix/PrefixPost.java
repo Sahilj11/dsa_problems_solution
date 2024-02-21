@@ -24,7 +24,7 @@ public class PrefixPost {
                 String temp = new String("");
                 temp += st.pop();
                 temp += st.pop();
-                temp += c;
+                temp += temp1;
                 st.push(temp);
             }
         }
