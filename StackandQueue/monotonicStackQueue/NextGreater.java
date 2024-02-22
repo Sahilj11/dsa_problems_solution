@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+import java.util.Stack;
 
 /**
  * NextGreater
@@ -6,43 +6,58 @@ import java.lang.reflect.Array;
 public class NextGreater {
 
     public static void main(String[] args) {
-        int[] arr = { 3, 10, 4, 3, 4, 32, 8, 1 };
-        brute(arr);
+        int[] arr = { 3, 8, 1 };
+        optimul(arr);
     }
 
     private static void brute(int[] arr) {
         int[] ans = new int[arr.length];
         int index = 0;
         for (int i = 0; i < arr.length; i++) {
-            int temp = arr[i];
-            boolean foundGreater = false;
-            int pointer;
-            if (i == arr.length - 1) {
-                pointer = 0;
-            } else {
-                pointer = i + 1;
-            }
-            while (i != pointer) {
-                if (arr[pointer] > temp) {
-                    ans[index] = arr[pointer];
-                    foundGreater = true;
+            int pointer = -1;
+            for (int j = i + 1; j < arr.length * 2; j++) {
+                if (pointer == j) {
+                    ans[index] = -1;
                     index++;
                     break;
                 }
-                if (pointer == arr.length - 1) {
-                    pointer = 0;
-                    continue;
+                if (j < arr.length) {
+                    pointer = j;
+                } else if (j >= arr.length) {
+                    pointer = j % arr.length;
                 }
-                pointer++;
-            }
-            if (foundGreater == false) {
-                ans[index] = -1;
-                index++;
+                if (arr[pointer] > arr[j % arr.length]) {
+                    ans[index] = arr[pointer];
+                    index++;
+                    break;
+                }
             }
         }
         for (int i : ans) {
-            System.out.println(i);
+            System.out.print(i + ", ");
         }
+        System.out.println();
     }
 
+    private static void optimul(int[] arr) {
+        Stack<Integer> st = new Stack<>();
+        int n = arr.length;
+        int nge[] = new int[n];
+        for (int i = arr.length * 2 - 1; i >= 0; i--) {
+            while (!st.empty() && st.peek() <= arr[i % n]) {
+                st.pop();
+            }
+            if (i < n) {
+                if (!st.empty())
+                    nge[i] = st.peek();
+                else
+                    nge[i] = -1;
+
+            }
+            st.push(arr[i % n]);
+        }
+        for (int i : nge) {
+            System.out.print(i + ",");
+        }
+    }
 }
