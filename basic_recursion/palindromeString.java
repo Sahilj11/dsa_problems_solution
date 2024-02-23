@@ -1,25 +1,26 @@
+import java.util.Stack;
+
 public class palindromeString {
 
     public static void main(String[] args) {
         // TODO: checking palindrome string
         String str = "TAKE U FORWARD";
-        String[] arr = str.split(" ");
-        int firstKey = 0;
-        int lastKey = arr.length - 1;
-        boolean palindrome = false;
-        for (int i = 0; i < arr.length; i++) {
-            if (firstKey > lastKey) {
-                break;
-            } else if (arr[firstKey].equals(arr[lastKey])) {
-                palindrome = true;
-                firstKey++;
-                lastKey--;
+        System.out.println(brute(str));
+    }
+
+    private static boolean brute(String s) {
+        Stack<Character> st = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            st.push(s.charAt(i));
+        }
+        for (int i = s.length() - 1; i >= 0; i--) {
+            Character c = s.charAt(i);
+            if (c.equals(st.pop())) {
+                return false;
             } else {
-                palindrome = false;
-                firstKey++;
-                lastKey--;
+                continue;
             }
         }
-        System.out.println(palindrome);
+        return true;
     }
 }
