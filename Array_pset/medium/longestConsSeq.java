@@ -7,9 +7,9 @@ public class longestConsSeq {
 
     public static void main(String[] args) {
         int[] arr = { 100, 200, 1, 3, 2, 4, 2 };
-        // bruteForce(arr);
+         bruteForce(arr);
         // optimul1(arr);
-        optimul2(arr);
+        // optimul2(arr);
     }
 
     static void bruteForce(int[] arr) {

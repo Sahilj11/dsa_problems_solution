@@ -3,9 +3,8 @@ import java.util.Stack;
 public class palindromeString {
 
     public static void main(String[] args) {
-        // TODO: checking palindrome string
-        String str = "TAKE U FORWARD";
-        System.out.println(brute(str));
+        String str = "abccba";
+        System.out.println(optimul(str));
     }
 
     private static boolean brute(String s) {
@@ -20,6 +19,19 @@ public class palindromeString {
             } else {
                 continue;
             }
+        }
+        return true;
+    }
+
+    private static boolean optimul(String s) {
+        int start = 0;
+        int end = s.length() - 1;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(start) != s.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
         }
         return true;
     }

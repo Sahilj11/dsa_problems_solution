@@ -8,14 +8,11 @@ public class Intro {
     public static void main(String[] args) {
         // TODO: Complete the reverse task
         MyDoublyLinkedList<Integer> ls = new MyDoublyLinkedList<>();
-        ls.add(23);
-        ls.add(26);
-        ls.add(25);
-        ls.add(28);
-        ls.display();
-        ls.delete();
-        ls.display();
-        ls.bruteReverse();
+        ls.add(2);
+        ls.add(3);
+        ls.add(4);
+        ls.add(5);
+        ls.optReverse();
         ls.display();
     }
 }
@@ -31,7 +28,7 @@ class MyDoublyLinkedList<T> {
         Node<T> node = new Node<>(data);
         if (head == null) {
             head = node;
-            node.prev = head;
+            node.prev = null;
             head.prev = null;
         } else {
             Node<T> current = head;
@@ -83,10 +80,29 @@ class MyDoublyLinkedList<T> {
            iterator.data = st.pop(); 
            iterator = iterator.next;
         }
+        this.display();
     }
     void optReverse(){
-
-       System.out.println("test"); 
+        Node<T> one,two,three;
+        if (head == null || this.size() < 2) {
+           return; 
+        }
+        one = null;
+        two = head;
+        three= head.next;
+        while (three.next != null) {
+           two.next = one;
+           two.prev = three;
+           three = three.next;
+           one = two;
+           two = two.prev;
+        }
+        two.next = one;
+        two.prev = three;
+        three.next = two;
+        three.prev = null;
+        head = three;
+        head.prev = null;
     }
 }
 
