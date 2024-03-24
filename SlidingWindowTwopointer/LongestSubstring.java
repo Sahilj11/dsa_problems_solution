@@ -8,7 +8,7 @@ public class LongestSubstring {
 
     public static void main(String[] args) {
         String s = "takeUforward";
-        System.out.println(brute(s));
+        System.out.println(optimul(s));
     }
 
     private static int brute(String s) {
@@ -27,7 +27,21 @@ public class LongestSubstring {
         }
         return max_string;
     }
-    private static int optimul(String s){
 
+    private static int optimul(String s) {
+        Set<Character> st = new HashSet<>();
+        int left = 0;
+        int maxSub = Integer.MIN_VALUE;
+        for (int right = 0; right < s.length(); right++) {
+            if (st.contains(s.charAt(right))) {
+                while (left < right && st.contains(s.charAt(right))) {
+                    st.remove(s.charAt(left));
+                    left++;
+                }
+            }
+            st.add(s.charAt(right));
+            maxSub = Math.max(maxSub, right - left + 1);
+        }
+        return maxSub;
     }
 }
