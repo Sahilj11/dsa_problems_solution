@@ -4,11 +4,22 @@
 public class Heapify {
 
     public static void main(String[] args) {
-        int[] arr = { 16, 14, 10, 8, 7, 9, 3, 32, 2, 4, 1 };
+        int[] arr = { 1, 2, 3, 8, 4, 9, 10, 32, 16, 14, 7 };
         int n = arr.length;
+        boolean check = false;
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            check = checkMin(arr, i, n);
+        }
+        System.out.println(check);
+        System.out.println("MinHeap:");
+        for (int i : arr) {
+            System.out.print(i + ", ");
+        }
+        System.out.println();
         for (int i = n / 2 - 1; i >= 0; i--) {
             maxHeapify(arr, i, n);
         }
+        System.out.println("MaxHeap");
         for (int i : arr) {
             System.out.print(i + ", ");
         }
@@ -19,10 +30,10 @@ public class Heapify {
         int left = 2 * i + 1;
         int largest = i;
         int right = 2 * i + 2;
-        if (left <= heapSize && arr[left] > arr[i]) {
+        if (left <= heapSize && arr[left] > arr[largest]) {
             largest = left;
         }
-        if (right <= heapSize && arr[right] > arr[i]) {
+        if (right <= heapSize && arr[right] > arr[largest]) {
             largest = right;
         }
         if (largest != i) {
@@ -50,4 +61,15 @@ public class Heapify {
             minHeapify(arr, smallest, heapSize);
         }
     }
+
+    private static boolean checkMin(int[] arr, int i, int heapSize) {
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        int smallest = i;
+        if (left < heapSize && arr[left] < arr[smallest] || right < heapSize && arr[right] < arr[smallest]) {
+            return false;
+        }
+        return true;
+    }
+
 }
