@@ -10,7 +10,7 @@ import java.util.Stack;
 public class Traversals {
 
     public static void main(String[] args) {
-        int[] tree = { 9, 8, 7, 6, 5, 4, 3 };
+        int[] tree = { 8, 9, 10, 2, 3, 4, 5, 1 };
         System.out.println("InOrder: ");
         inorderTrav(tree, 0);
         System.out.println();
@@ -21,6 +21,9 @@ public class Traversals {
         postOrderTrav(tree, 0);
         System.out.println();
         iterativePreOrder(tree);
+        System.out.println();
+        System.out.println("PostOrder Iterative");
+        iterativePostOrder(tree);
     }
 
     private static void inorderTrav(int[] tree, int index) {
@@ -87,7 +90,7 @@ public class Traversals {
             for (int i = 0; i < st.size(); i++) {
                 int index = st.pop();
                 if (index < tree.length) {
-                    System.out.println(tree[index]);
+                    System.out.print(tree[index] + ", ");
                     int leftChildIndex = index * 2 + 1;
                     int rightChildIndex = index * 2 + 2;
                     if (rightChildIndex < tree.length) {
@@ -101,6 +104,44 @@ public class Traversals {
         }
     }
 
-    private static void iterativeInorder(int[] tree){
+    private static void iterativeInorder(int[] tree) {
+        Stack<Integer> st = new Stack<>();
+        int index = 0;
+
+        while (index < tree.length || !st.isEmpty()) {
+            while (index < tree.length) {
+                st.push(index);
+                index = 2 * index + 1;
+            }
+            if (!st.isEmpty()) {
+                index = st.pop();
+                System.out.print(tree[index] + ", ");
+                index = 2 * index + 2;
+            }
+        }
+    }
+
+    private static void iterativePostOrder(int[] tree) {
+        Stack<Integer> st1 = new Stack<>();
+        Stack<Integer> st2 = new Stack<>();
+        int index = 0;
+        st1.add(index);
+        while (!st1.isEmpty()) {
+            index = st1.pop();
+            st2.push(index);
+            if (index < tree.length) {
+                int leftIndex = index * 2 + 1;
+                int rightIndex = index * 2 + 2;
+                if (leftIndex < tree.length) {
+                    st1.push(leftIndex);
+                }
+                if (rightIndex < tree.length) {
+                    st1.push(rightIndex);
+                }
+            }
+        }
+        while (!st2.isEmpty()) {
+            System.out.print(tree[st2.pop()] + ", ");
+        }
     }
 }
